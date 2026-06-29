@@ -1,120 +1,164 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import logo from "../assets/mindbridge-logo.png.png";
 
 export default function Navbar({ coins }) {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const isHome = location.pathname === "/";
 
+  const navLinks = [
+    { path: "/", label: "🏠 Dashboard" },
+    { path: "/notes", label: "📚 Notes" },
+    { path: "/groups", label: "👥 Groups" },
+    { path: "/challenges", label: "🌟 Challenges" },
+    { path: "/chat", label: "💬 Chat" },
+    { path: "/therapy", label: "🧠 Wellness" },
+    { path: "/leaderboard", label: "🏆 Leaderboard" },
+    { path: "/profile", label: "👤 Profile" },
+  ];
+
   return (
-    <nav className="bg-white shadow-md px-8 py-4 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/30 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
 
-        {/* Animated Logo */}
+        {/* Top Bar */}
 
-        <div className="w-52">
-          <AnimatePresence>
-            {!isHome && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: -40,
-                  scale: 0.7,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                  scale: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -40,
-                  scale: 0.7,
-                }}
-                transition={{
-                  duration: 0.5,
-                }}
+        <div className="flex items-center justify-between">
+
+          {/* Logo */}
+
+          <div className="w-40 md:w-52">
+
+            <AnimatePresence>
+
+              {!isHome && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: -30,
+                    scale: 0.8,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: -30,
+                    scale: 0.8,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                  }}
+                >
+                  <img
+                    src={logo}
+                    alt="MindBridge"
+                    className="h-12 md:h-16 object-contain"
+                  />
+                </motion.div>
+              )}
+
+            </AnimatePresence>
+
+          </div>
+
+          {/* Desktop Navigation */}
+
+          <div className="hidden lg:flex gap-5 text-base font-medium">
+
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`transition px-3 py-2 rounded-xl ${
+                  location.pathname === link.path
+                    ? "bg-blue-100 text-blue-700"
+                    : "hover:text-blue-600 hover:bg-blue-50"
+                }`}
               >
-                <img
-                  src={logo}
-                  alt="MindBridge"
-                  className="h-16 object-contain"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+                {link.label}
+              </Link>
+            ))}
 
-        {/* Navigation */}
+          </div>
 
-        <div className="flex gap-6 text-lg font-medium">
+          {/* Right Side */}
 
-          <Link
-            to="/"
-            className="hover:text-blue-600 transition"
-          >
-            🏠 Dashboard
-          </Link>
+          <div className="flex items-center gap-3">
 
-          <Link
-            to="/notes"
-            className="hover:text-blue-600 transition"
-          >
-            📚 Notes
-          </Link>
+            {/* Coins */}
 
-          <Link
-            to="/groups"
-            className="hover:text-blue-600 transition"
-          >
-            👥 Groups
-          </Link>
+            <div className="bg-gradient-to-r from-yellow-300 to-amber-400 px-4 md:px-6 py-2 md:py-3 rounded-2xl shadow-md">
+              <span className="font-bold text-slate-800 text-sm md:text-lg">
+                🪙 {coins}
+              </span>
+            </div>
 
-          <Link
-            to="/challenges"
-            className="hover:text-blue-600 transition"
-          >
-            🌟 Challenges
-          </Link>
+            {/* Mobile Menu Button */}
 
-          <Link
-            to="/chat"
-            className="hover:text-blue-600 transition"
-          >
-            💬 Chat
-          </Link>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden text-3xl text-slate-700"
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
 
-          <Link
-            to="/therapy"
-            className="hover:text-blue-600 transition"
-          >
-            🧠 Wellness
-          </Link>
-
-          <Link
-            to="/leaderboard"
-            className="hover:text-blue-600 transition"
-          >
-            🏆 Leaderboard
-          </Link>
-
-          <Link
-            to="/profile"
-            className="hover:text-blue-600 transition"
-          >
-            👤 Profile
-          </Link>
+          </div>
 
         </div>
 
-        {/* Coins */}
+        {/* Mobile Menu */}
 
-        <div className="bg-blue-100 px-6 py-3 rounded-2xl shadow-sm">
-          <span className="font-bold text-blue-700 text-lg">
-            🪙 {coins}
-          </span>
-        </div>
+        <AnimatePresence>
+
+          {menuOpen && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                height: 0,
+              }}
+              animate={{
+                opacity: 1,
+                height: "auto",
+              }}
+              exit={{
+                opacity: 0,
+                height: 0,
+              }}
+              transition={{
+                duration: 0.3,
+              }}
+              className="lg:hidden mt-4 overflow-hidden"
+            >
+
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-4 shadow-xl flex flex-col gap-2">
+
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setMenuOpen(false)}
+                    className={`px-4 py-3 rounded-2xl transition ${
+                      location.pathname === link.path
+                        ? "bg-blue-100 text-blue-700"
+                        : "hover:bg-blue-50"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+              </div>
+
+            </motion.div>
+          )}
+
+        </AnimatePresence>
 
       </div>
     </nav>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import Navbar from "./components/Navbar";
 
+import SplashScreen from "./pages/SplashScreen";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Notes from "./pages/Notes";
@@ -16,6 +17,8 @@ import Profile from "./pages/Profile";
 function App() {
   const [coins, setCoins] = useState(120);
 
+  const [showSplash, setShowSplash] = useState(true);
+
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem("mindbridgeLoggedIn") === "true";
   });
@@ -26,6 +29,18 @@ function App() {
       isLoggedIn
     );
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   return (
     <BrowserRouter>
