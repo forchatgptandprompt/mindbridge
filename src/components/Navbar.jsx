@@ -14,9 +14,7 @@ export default function Navbar({ coins }) {
         {/* Animated Logo */}
 
         <div className="w-52">
-
           <AnimatePresence>
-
             {!isHome && (
               <motion.div
                 initial={{
@@ -45,9 +43,7 @@ export default function Navbar({ coins }) {
                 />
               </motion.div>
             )}
-
           </AnimatePresence>
-
         </div>
 
         {/* Navigation */}
@@ -80,6 +76,13 @@ export default function Navbar({ coins }) {
             className="hover:text-blue-600 transition"
           >
             🌟 Challenges
+          </Link>
+
+          <Link
+            to="/chat"
+            className="hover:text-blue-600 transition"
+          >
+            💬 Chat
           </Link>
 
           <Link

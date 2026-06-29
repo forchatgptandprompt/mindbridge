@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Notes from "./pages/Notes";
 import Groups from "./pages/Groups";
 import Challenges from "./pages/Challenges";
+import Chat from "./pages/Chat";
 import Therapy from "./pages/Therapy";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
@@ -28,7 +29,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       {isLoggedIn && <Navbar coins={coins} />}
 
       <Routes>
@@ -95,6 +95,17 @@ function App() {
         />
 
         <Route
+          path="/chat"
+          element={
+            isLoggedIn ? (
+              <Chat />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
           path="/therapy"
           element={
             isLoggedIn ? (
@@ -139,7 +150,6 @@ function App() {
         />
 
       </Routes>
-
     </BrowserRouter>
   );
 }
