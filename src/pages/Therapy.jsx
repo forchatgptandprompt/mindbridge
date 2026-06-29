@@ -1,6 +1,12 @@
-export default function Therapy() {
+import { useState } from "react";
+
+export default function Therapy({ coins, setCoins }) {
+  const [message, setMessage] = useState("");
+  const [redeemed, setRedeemed] = useState([]);
+
   const services = [
     {
+      id: 1,
       emoji: "🧠",
       title: "1-on-1 Therapy Session",
       description:
@@ -10,6 +16,7 @@ export default function Therapy() {
     },
 
     {
+      id: 2,
       emoji: "🧘",
       title: "Meditation Course",
       description:
@@ -19,6 +26,7 @@ export default function Therapy() {
     },
 
     {
+      id: 3,
       emoji: "🌿",
       title: "Stress Management Workshop",
       description:
@@ -28,6 +36,7 @@ export default function Therapy() {
     },
 
     {
+      id: 4,
       emoji: "🎯",
       title: "Career Guidance Session",
       description:
@@ -36,6 +45,31 @@ export default function Therapy() {
       duration: "1 Hour",
     },
   ];
+
+  const redeemService = (service) => {
+    if (redeemed.includes(service.id)) return;
+
+    if (coins >= service.coins) {
+      setCoins(coins - service.coins);
+      setRedeemed([...redeemed, service.id]);
+
+      setMessage(
+        `✅ Successfully redeemed ${service.title}!`
+      );
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    } else {
+      setMessage(
+        "❌ Not enough Care Coins to redeem this service."
+      );
+
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 p-10">
@@ -56,6 +90,14 @@ export default function Therapy() {
 
         </div>
 
+        {/* Success Message */}
+
+        {message && (
+          <div className="mb-8 bg-green-100 text-green-700 p-4 rounded-2xl text-center font-semibold shadow-md animate-pulse">
+            {message}
+          </div>
+        )}
+
         {/* Care Coins Card */}
 
         <div className="bg-blue-100 rounded-3xl p-8 mb-12 flex justify-between items-center shadow-lg">
@@ -73,7 +115,7 @@ export default function Therapy() {
           </div>
 
           <div className="text-5xl font-bold text-blue-600">
-            🪙 120
+            🪙 {coins}
           </div>
 
         </div>
@@ -82,11 +124,11 @@ export default function Therapy() {
 
         <div className="grid md:grid-cols-2 gap-8">
 
-          {services.map((service, index) => (
+          {services.map((service) => (
 
             <div
-              key={index}
-              className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300"
+              key={service.id}
+              className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
             >
 
               <div className="text-6xl mb-5">
@@ -113,8 +155,18 @@ export default function Therapy() {
 
               </div>
 
-              <button className="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold hover:bg-blue-700 transition">
-                Redeem Service
+              <button
+                onClick={() => redeemService(service)}
+                disabled={redeemed.includes(service.id)}
+                className={`w-full py-4 rounded-2xl font-semibold transition-all duration-300 ${
+                  redeemed.includes(service.id)
+                    ? "bg-green-500 text-white cursor-default"
+                    : "bg-blue-600 text-white hover:bg-blue-700 hover:scale-105"
+                }`}
+              >
+                {redeemed.includes(service.id)
+                  ? "Redeemed ✓"
+                  : "Redeem Service"}
               </button>
 
             </div>

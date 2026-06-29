@@ -1,18 +1,28 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import logo from "../assets/mindbridge-logo.png.png";
 
-export default function Home() {
+export default function Home({ coins }) {
   return (
     <div className="min-h-screen bg-slate-50 p-10">
       <div className="max-w-6xl mx-auto">
 
         {/* Hero Section */}
 
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
 
-          <img
+          <motion.img
             src={logo}
             alt="MindBridge Logo"
-            className="mx-auto h-36 object-contain mb-6"
+            className="mx-auto h-44 object-contain mb-6"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.8 }}
           />
 
           <p className="text-2xl text-slate-600 mt-4">
@@ -26,12 +36,14 @@ export default function Home() {
           </p>
 
           <div className="flex justify-center mt-8">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-blue-700 transition shadow-lg">
-              Explore Wellness Services
-            </button>
+            <Link to="/therapy">
+              <button className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-lg">
+                Explore Wellness Services
+              </button>
+            </Link>
           </div>
 
-        </div>
+        </motion.div>
 
         {/* Welcome Card */}
 
@@ -58,7 +70,7 @@ export default function Home() {
               </p>
 
               <h1 className="text-4xl font-bold text-blue-600">
-                🪙 120
+                🪙 {coins}
               </h1>
 
             </div>
@@ -67,7 +79,7 @@ export default function Home() {
 
         </div>
 
-        {/* How MindBridge Works */}
+        {/* Feature Grid */}
 
         <section className="mb-20">
 
@@ -77,82 +89,55 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8">
 
-            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition">
-
-              <div className="text-5xl mb-4">
-                📚
-              </div>
-
+            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-5xl mb-4">📚</div>
               <h3 className="text-2xl font-bold mb-3">
                 Peer Learning
               </h3>
-
               <p className="text-slate-600 leading-relaxed">
                 Share notes, tutor juniors, and answer questions to create
                 a collaborative learning environment.
               </p>
-
             </div>
 
-
-            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition">
-
-              <div className="text-5xl mb-4">
-                🪙
-              </div>
-
+            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-5xl mb-4">🪙</div>
               <h3 className="text-2xl font-bold mb-3">
                 Care Coin Rewards
               </h3>
-
               <p className="text-slate-600 leading-relaxed">
                 Earn Care Coins through meaningful academic contributions
                 and community engagement.
               </p>
-
             </div>
 
-
-            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition">
-
-              <div className="text-5xl mb-4">
-                🧠
-              </div>
-
+            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-5xl mb-4">🧠</div>
               <h3 className="text-2xl font-bold mb-3">
                 Affordable Therapy
               </h3>
-
               <p className="text-slate-600 leading-relaxed">
                 Redeem your Care Coins for therapy sessions, wellness
                 workshops, and mindfulness programs.
               </p>
-
             </div>
 
-
-            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition">
-
-              <div className="text-5xl mb-4">
-                👥
-              </div>
-
+            <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+              <div className="text-5xl mb-4">👥</div>
               <h3 className="text-2xl font-bold mb-3">
                 Community Challenges
               </h3>
-
               <p className="text-slate-600 leading-relaxed">
                 Participate in collaborative activities and stress-relief
                 challenges that strengthen the student community.
               </p>
-
             </div>
 
           </div>
 
         </section>
 
-        {/* Rewards Section */}
+        {/* Rewards */}
 
         <section className="mb-20">
 
@@ -162,71 +147,44 @@ export default function Home() {
 
           <div className="grid md:grid-cols-4 gap-6">
 
-            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
-
-              <div className="text-4xl mb-3">
-                🧘
-              </div>
-
+            <div className="bg-white p-6 rounded-3xl shadow-lg text-center hover:scale-105 transition">
+              <div className="text-4xl mb-3">🧘</div>
               <h3 className="font-bold text-xl">
                 Meditation Course
               </h3>
-
               <p className="text-blue-600 mt-2 font-semibold">
                 40 Coins
               </p>
-
             </div>
 
-
-            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
-
-              <div className="text-4xl mb-3">
-                🌿
-              </div>
-
+            <div className="bg-white p-6 rounded-3xl shadow-lg text-center hover:scale-105 transition">
+              <div className="text-4xl mb-3">🌿</div>
               <h3 className="font-bold text-xl">
                 Stress Workshop
               </h3>
-
               <p className="text-blue-600 mt-2 font-semibold">
                 50 Coins
               </p>
-
             </div>
 
-
-            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
-
-              <div className="text-4xl mb-3">
-                🎯
-              </div>
-
+            <div className="bg-white p-6 rounded-3xl shadow-lg text-center hover:scale-105 transition">
+              <div className="text-4xl mb-3">🎯</div>
               <h3 className="font-bold text-xl">
                 Career Guidance
               </h3>
-
               <p className="text-blue-600 mt-2 font-semibold">
                 80 Coins
               </p>
-
             </div>
 
-
-            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
-
-              <div className="text-4xl mb-3">
-                🧠
-              </div>
-
+            <div className="bg-white p-6 rounded-3xl shadow-lg text-center hover:scale-105 transition">
+              <div className="text-4xl mb-3">🧠</div>
               <h3 className="font-bold text-xl">
                 Therapy Session
               </h3>
-
               <p className="text-blue-600 mt-2 font-semibold">
                 100 Coins
               </p>
-
             </div>
 
           </div>
