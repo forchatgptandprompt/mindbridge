@@ -23,35 +23,22 @@ export default function SplashScreen() {
         <motion.img
           src={logo}
           alt="MindBridge"
-          className="h-40 mx-auto mb-8"
-          initial={{ scale: 0.7, rotate: -5 }}
-          animate={{ scale: 1, rotate: 0 }}
+          className="h-32 md:h-40 w-auto mx-auto mb-8"
+          initial={{
+            scale: 0.8,
+            opacity: 0,
+          }}
+          animate={{
+            scale: 1,
+            opacity: 1,
+          }}
           transition={{
             duration: 1,
             type: "spring",
           }}
         />
 
-        <motion.h1
-          className="text-6xl font-bold text-blue-700"
-          initial={{ y: 20 }}
-          animate={{ y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          MindBridge
-        </motion.h1>
-
-        <motion.p
-          className="text-xl text-slate-600 mt-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-        >
-          Learn Together. Thrive Together.
-        </motion.p>
-
         <motion.div
-          className="mt-10"
           animate={{
             opacity: [0.4, 1, 0.4],
           }}
@@ -60,7 +47,7 @@ export default function SplashScreen() {
             duration: 1.5,
           }}
         >
-          <p className="text-slate-500 text-lg">
+          <p className="text-slate-500 text-lg font-medium">
             Loading...
           </p>
         </motion.div>
